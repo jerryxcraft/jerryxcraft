@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-MY" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jerryxcraft | 手作小铺 - 手机链与礼盒定制</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Noto Sans SC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff5f7',
+                            100: '#ffe6ec',
+                            200: '#fecdd6',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            purple: '#f3e8ff',
+                            gold: '#fef3c7',
+                            softBg: '#fffafb'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '"Noto Sans SC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
+            background-color: #fffafb;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 228, 230, 0.6);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col justify-between selection:bg-pink-200 selection:text-pink-800">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400 text-white text-xs md:text-sm py-2 px-4 text-center font-medium shadow-sm">
+        <span class="inline-flex items-center gap-2">
+            <i class="fa-solid fa-gift animate-bounce"></i>
+            <span data-i18n="topBar">全店满 <span class="underline font-bold">RM 35</span> 包邮（西马）！下单即送免费精美卡片代写与礼盒包装 ✨</span>
+        </span>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="filterCategory('all')">
+                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-tr from-pink-300 via-purple-200 to-rose-200 flex items-center justify-center shadow-inner border-2 border-white">
+                        <i class="fa-solid fa-gem text-pink-600 text-lg md:text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-lg md:text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent tracking-tight">jerryxcraft</span>
+                        <span class="block text-[10px] md:text-xs text-gray-400 font-medium" data-i18n="brandSub">手作小铺 · 马来西亚手作</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-1 lg:gap-2 text-sm font-medium text-gray-600">
+                    <button onclick="filterCategory('all')" class="nav-btn px-4 py-2 rounded-full hover:bg-pink-50 hover:text-pink-600 transition" data-i18n="catAll">全部商品</button>
+                    <button onclick="filterCategory('grad')" class="nav-btn px-4 py-2 rounded-full hover:bg-pink-50 hover:text-pink-600 transition flex items-center gap-1.5">
+                        <span data-i18n="catGrad">🎓 毕业礼盒</span>
+                        <span class="bg-pink-100 text-pink-600 text-[10px] px-1.5 py-0.5 rounded-full font-semibold" data-i18n="badgeHot">热门</span>
+                    </button>
+                    <button onclick="filterCategory('birthday')" class="nav-btn px-4 py-2 rounded-full hover:bg-pink-50 hover:text-pink-600 transition" data-i18n="catBirthday">🎂 生日礼盒</button>
+                    <button onclick="filterCategory('single')" class="nav-btn px-4 py-2 rounded-full hover:bg-pink-50 hover:text-pink-600 transition" data-i18n="catSingle">✨ 单品系列</button>
+                    <button onclick="openHowToOrderModal()" class="px-4 py-2 rounded-full bg-pink-100 text-pink-700 hover:bg-pink-200 font-semibold transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-question"></i> <span data-i18n="howToOrderBtn">📖 下单流程</span>
+                    </button>
+                </div>
+
+                <!-- Cart Button & Customization Modal Toggle -->
+                <div class="flex items-center gap-2 md:gap-3">
+                    <button onclick="toggleLanguage()" class="px-3 py-1.5 text-xs font-bold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full border border-gray-300 transition flex items-center gap-1">
+                        <i class="fa-solid fa-globe"></i> <span id="langBtnText">EN</span>
+                    </button>
+                    <button onclick="openCustomModal()" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 px-3 py-2 rounded-full transition shadow-sm">
+                        <i class="fa-solid fa-wand-magic-sparkles text-purple-500"></i> <span data-i18n="customGuideBtn">定制字母指南</span>
+                    </button>
+
+                    <button onclick="toggleCartModal()" class="relative p-2.5 md:p-3 bg-pink-50 text-pink-600 rounded-full hover:bg-pink-100 transition border border-pink-200 focus:outline-none">
+                        <i class="fa-solid fa-bag-shopping text-lg md:text-xl"></i>
+                        <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-sm scale-0 transition-transform duration-200">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Horizontal Scroll Category Bar -->
+        <div class="md:hidden flex items-center gap-2 px-4 py-2.5 overflow-x-auto hide-scrollbar border-t border-pink-50/50 bg-white/50">
+            <button onclick="filterCategory('all')" class="mobile-cat-btn flex-shrink-0 px-3.5 py-1.5 text-xs font-medium rounded-full bg-pink-500 text-white shadow-sm" data-i18n="catAll">全部商品</button>
+            <button onclick="filterCategory('grad')" class="mobile-cat-btn flex-shrink-0 px-3.5 py-1.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600" data-i18n="catGrad">🎓 毕业季套组</button>
+            <button onclick="filterCategory('birthday')" class="mobile-cat-btn flex-shrink-0 px-3.5 py-1.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600" data-i18n="catBirthday">🎂 生日套组</button>
+            <button onclick="filterCategory('single')" class="mobile-cat-btn flex-shrink-0 px-3.5 py-1.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600" data-i18n="catSingle">✨ 绝美单品</button>
+            <button onclick="openHowToOrderModal()" class="flex-shrink-0 px-3.5 py-1.5 text-xs font-bold rounded-full bg-pink-100 text-pink-700" data-i18n="howToOrderBtn">📖 下单步骤</button>
+        </div>
+    </nav>
+
+    <!-- Hero Banner Section -->
+    <header class="relative overflow-hidden bg-gradient-to-b from-pink-100/60 via-purple-50/30 to-transparent py-10 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="text-center md:text-left space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-pink-200 text-pink-600 text-xs font-semibold shadow-xs">
+                        <span class="w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+                        <span data-i18n="heroBadge">马来西亚独家定制手作饰品</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                        <span data-i18n="heroTitleLine1">独一无二的手作心意 💖</span><br>
+                        <span class="bg-gradient-to-r from-pink-500 via-purple-500 to-rose-400 bg-clip-text text-transparent" data-i18n="heroTitleLine2">专属毕业与生日礼盒定制</span>
+                    </h1>
+                    <p class="text-sm md:text-base text-gray-600 max-w-lg mx-auto md:mx-0 leading-relaxed" data-i18n="heroDesc">
+                        精美手链、手机链与挂坠套组。自带开窗礼盒、手写贺卡与专属字母串珠，为你和重要的人定格温馨时刻。
+                    </p>
+                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-3">
+                        <button onclick="filterCategory('grad')" class="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-400 text-white font-medium shadow-md shadow-pink-200 hover:shadow-lg hover:brightness-105 transition flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-graduation-cap"></i> <span data-i18n="heroBtnGrad">浏览毕业礼盒</span>
+                        </button>
+                        <button onclick="openCustomModal()" class="px-6 py-3 rounded-full bg-white text-gray-700 font-medium border border-pink-200 shadow-xs hover:bg-pink-50 transition flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-hand-sparkles text-pink-400"></i> <span data-i18n="heroBtnCustom">查看定制玩法</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Decorative Card Grid -->
+                <div class="relative flex justify-center items-center">
+                    <div class="w-full max-w-sm p-4 rounded-3xl glass-card shadow-xl relative transform rotate-1 hover:rotate-0 transition duration-300">
+                        <div class="relative h-64 rounded-2xl overflow-hidden mb-4 bg-pink-100">
+                            <img src="https://images.unsplash.com/photo-1611591475281-8d995e72d240?auto=format&fit=crop&w=800&q=80" alt="Graduation Gift Set Showcase" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-pink-600 font-bold text-xs px-3 py-1 rounded-full shadow-sm" data-i18n="featuredTag">
+                                🎓 毕业典藏热销
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base" data-i18n="featuredTitle">“闪耀新程”豪华毕业礼盒</h3>
+                                <p class="text-xs text-gray-500" data-i18n="featuredDesc">含定制手链 + 手机链 + 挂坠 + 礼盒贺卡</p>
+                            </div>
+                            <span class="text-lg font-bold text-pink-600">RM 38.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+        <!-- Section Header with Search Bar -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <div>
+                <h2 id="sectionTitle" class="text-2xl md:text-3xl font-bold text-gray-900" data-i18n="secTitleAll">全部商品展示</h2>
+                <p class="text-xs md:text-sm text-gray-500 mt-1" data-i18n="secSubTitle">选购精心搭配的限定礼盒或随心单品</p>
+            </div>
+
+            <!-- Search input -->
+            <div class="relative w-full md:w-64">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <input type="text" id="searchInput" oninput="searchProducts()" placeholder="搜索名称或关键字..." data-i18n-ph="searchPh" class="w-full pl-10 pr-4 py-2 bg-white border border-pink-200 rounded-full text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 transition">
+            </div>
+        </div>
+
+        <!-- Products Grid Container -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Dynamic JavaScript Rendered Products -->
+        </div>
+
+        <!-- Empty Search State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto text-pink-400 mb-3">
+                <i class="fa-solid fa-box-open text-2xl"></i>
+            </div>
+            <h3 class="font-bold text-gray-700" data-i18n="emptyTitle">未找到相关商品</h3>
+            <p class="text-xs text-gray-400 mt-1" data-i18n="emptyDesc">尝试换个关键词，或切换分类浏览吧！</p>
+        </div>
+    </main>
+
+    <!-- Step-by-Step Customer How To Order Guide Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 my-6">
+        <div class="bg-gradient-to-br from-pink-500 via-rose-500 to-purple-600 rounded-3xl p-6 md:p-10 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-white text-9xl">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+            <div class="text-center max-w-2xl mx-auto mb-8 space-y-2 relative z-10">
+                <span class="bg-white/20 text-white text-xs px-3.5 py-1 rounded-full font-bold uppercase tracking-wider backdrop-blur-md">Easy Shopping Guide</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold" data-i18n="guideHeading">只需 5 步，轻松下单送礼 🎁</h2>
+                <p class="text-pink-100 text-xs md:text-sm" data-i18n="guideSub">零繁琐注册！网站选好直接跳转 WhatsApp 发送，省时又省心</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative z-10">
+                <!-- Step 1 -->
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center space-y-2">
+                    <div class="w-10 h-10 rounded-full bg-white text-pink-600 font-bold flex items-center justify-center mx-auto text-sm shadow-md">1</div>
+                    <h4 class="font-bold text-sm" data-i18n="s1Title">挑选手作/套组</h4>
+                    <p class="text-[11px] text-pink-100" data-i18n="s1Desc">浏览生日/毕业礼盒或单品手机链，点击“加入购物车”。</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center space-y-2">
+                    <div class="w-10 h-10 rounded-full bg-white text-pink-600 font-bold flex items-center justify-center mx-auto text-sm shadow-md">2</div>
+                    <h4 class="font-bold text-sm" data-i18n="s2Title">定制字母与贺卡</h4>
+                    <p class="text-[11px] text-pink-100" data-i18n="s2Desc">打开购物车，输入定制的名字字母（A-Z）或手写贺卡祝福。</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center space-y-2">
+                    <div class="w-10 h-10 rounded-full bg-white text-pink-600 font-bold flex items-center justify-center mx-auto text-sm shadow-md">3</div>
+                    <h4 class="font-bold text-sm" data-i18n="s3Title">选择邮寄地区</h4>
+                    <p class="text-[11px] text-pink-100" data-i18n="s3Desc">选择西马或东马（西马满 RM35 自动享受包邮优惠）。</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center space-y-2">
+                    <div class="w-10 h-10 rounded-full bg-emerald-400 text-emerald-950 font-bold flex items-center justify-center mx-auto text-sm shadow-md">4</div>
+                    <h4 class="font-bold text-sm" data-i18n="s4Title">点击 WhatsApp 下单</h4>
+                    <p class="text-[11px] text-pink-100" data-i18n="s4Desc">点击按钮，自动带出整理好的订单详情并跳转 WhatsApp。</p>
+                </div>
+                <!-- Step 5 -->
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center space-y-2">
+                    <div class="w-10 h-10 rounded-full bg-amber-300 text-amber-950 font-bold flex items-center justify-center mx-auto text-sm shadow-md">5</div>
+                    <h4 class="font-bold text-sm" data-i18n="s5Title">完成付款与等待</h4>
+                    <p class="text-[11px] text-pink-100" data-i18n="s5Desc">使用 Touch 'n Go 或 DuitNow QR 转账，卖家安排制作发货。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How To Order Interactive Modal Popup -->
+    <div id="howToOrderModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeHowToOrderModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900" data-i18n="mHowToTitle">顾客购物与定制流程指南</h3>
+                <p class="text-xs text-gray-500 mt-1" data-i18n="mHowToSub">跟着以下 5 个步骤，轻松提交订单</p>
+            </div>
+
+            <div class="space-y-3.5 text-xs text-gray-600">
+                <div class="flex gap-3 items-start p-3 rounded-2xl bg-pink-50/60 border border-pink-100">
+                    <span class="w-6 h-6 rounded-full bg-pink-500 text-white font-bold flex items-center justify-center flex-shrink-0 text-xs">1</span>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm" data-i18n="s1Title">挑选商品或礼盒</h4>
+                        <p class="mt-0.5" data-i18n="s1Detail">在首页浏览生日/毕业套组或手链/手机链单品，选择数量并点击【加入购物车】。</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 items-start p-3 rounded-2xl bg-purple-50/60 border border-purple-100">
+                    <span class="w-6 h-6 rounded-full bg-purple-500 text-white font-bold flex items-center justify-center flex-shrink-0 text-xs">2</span>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm" data-i18n="s2Title">输入字母定制 & 贺卡祝语</h4>
+                        <p class="mt-0.5" data-i18n="s2Detail">点击右上角购物车，在备注框里输入手链/挂坠要加的字母（例如：CHLOE）以及代写贺卡内容。</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 items-start p-3 rounded-2xl bg-rose-50/60 border border-rose-100">
+                    <span class="w-6 h-6 rounded-full bg-rose-500 text-white font-bold flex items-center justify-center flex-shrink-0 text-xs">3</span>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm" data-i18n="s3Title">选择地区自动算邮费</h4>
+                        <p class="mt-0.5" data-i18n="s3Detail">勾选【西马】或【东马】。西马满 RM 35 自动享有免邮优惠！</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 items-start p-3 rounded-2xl bg-emerald-50/60 border border-emerald-100">
+                    <span class="w-6 h-6 rounded-full bg-emerald-500 text-white font-bold flex items-center justify-center flex-shrink-0 text-xs">4</span>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm" data-i18n="s4Title">一键发送订单至 WhatsApp</h4>
+                        <p class="mt-0.5" data-i18n="s4Detail">点击【通过 WhatsApp 一键发送订单】，系统会自动整理好购买清单并带您跳转到卖家的聊天框。</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 items-start p-3 rounded-2xl bg-amber-50/60 border border-amber-100">
+                    <span class="w-6 h-6 rounded-full bg-amber-500 text-white font-bold flex items-center justify-center flex-shrink-0 text-xs">5</span>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm" data-i18n="s5Title">转账付款 & 等待收货</h4>
+                        <p class="mt-0.5" data-i18n="s5Detail">通过 DuitNow QR 或 Touch 'n Go eWallet 转账给卖家，卖家确认后会在 1-2 天内制作并寄出！</p>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="closeHowToOrderModal()" class="w-full mt-5 py-3 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition shadow-md shadow-pink-200 text-xs" data-i18n="gotItBtn">
+                我知道了，开始挑选
+            </button>
+        </div>
+    </div>
+
+    <!-- Customization Guide Modal -->
+    <div id="customModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeCustomModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-2 text-xl">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900" data-i18n="mCustomTitle">专属字母 & 贺卡定制指南</h3>
+                <p class="text-xs text-gray-500 mt-1" data-i18n="mCustomSub">几步轻松打造独一无二的礼物</p>
+            </div>
+
+            <div class="space-y-4 text-sm">
+                <div class="p-4 rounded-2xl bg-pink-50 border border-pink-100">
+                    <h4 class="font-bold text-pink-700 flex items-center gap-2 mb-1" data-i18n="cStep1">
+                        字母串珠定制（A-Z）
+                    </h4>
+                    <p class="text-xs text-gray-600" data-i18n="cStep1Desc">选购支持定制的礼盒或单品后，可在结账时填写您要定制的名字字母（例如：CHLOE 或 K & T）。建议 3-7 个字母外观最佳。</p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-purple-50 border border-purple-100">
+                    <h4 class="font-bold text-purple-700 flex items-center gap-2 mb-1" data-i18n="cStep2">
+                        免费代写贺卡服务
+                    </h4>
+                    <p class="text-xs text-gray-600" data-i18n="cStep2Desc">在购物车结账面板填入您的祝福语（约 50 字以内），我们将手写在精美小贺卡上并随礼盒寄出！</p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-amber-50 border border-amber-100">
+                    <h4 class="font-bold text-amber-700 flex items-center gap-2 mb-1" data-i18n="cStep3">
+                        开窗礼盒与精致包装
+                    </h4>
+                    <p class="text-xs text-gray-600" data-i18n="cStep3Desc">所有礼盒套组均包含：透明开窗纸盒 + 优质拉菲草衬垫 + 蝴蝶结彩带 + 保护气泡膜，直接寄送给收礼人也超级体面。</p>
+                </div>
+            </div>
+
+            <button onclick="closeCustomModal()" class="w-full mt-6 py-3 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition shadow-md shadow-pink-200 text-sm" data-i18n="gotItBtn2">
+                我明白了，去挑选商品
+            </button>
+        </div>
+    </div>
+
+    <!-- Interactive Cart Modal Drawer -->
+    <div id="cartModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300">
+            <!-- Cart Header -->
+            <div class="p-4 sm:p-6 border-b border-pink-100 flex justify-between items-center bg-pink-50/50">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-pink-500 text-xl"></i>
+                    <h3 class="font-bold text-gray-900 text-lg" data-i18n="cartTitle">已选购商品</h3>
+                </div>
+                <button onclick="toggleCartModal()" class="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items Scrollable Container -->
+            <div id="cartItemsContainer" class="flex-grow overflow-y-auto p-4 sm:p-6 space-y-4">
+                <!-- Dynamic Items Inserted via JS -->
+            </div>
+
+            <!-- Cart Footer and Order Checkout Options -->
+            <div class="p-4 sm:p-6 border-t border-pink-100 bg-white space-y-4">
+                <!-- Shipping Region Selection -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-semibold text-gray-600" data-i18n="lblShipping">配送地区 (Shipping Region):</label>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <label class="flex items-center gap-2 p-2.5 rounded-xl border border-pink-200 cursor-pointer hover:bg-pink-50 transition">
+                            <input type="radio" name="shipping" value="west" checked onchange="updateCartUI()" class="accent-pink-500">
+                            <div>
+                                <span class="font-bold text-gray-700" data-i18n="westMY">西马 (West MY)</span>
+                                <span class="block text-[10px] text-gray-400" id="westShippingHint">RM 6.00 (满35包邮)</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 rounded-xl border border-pink-200 cursor-pointer hover:bg-pink-50 transition">
+                            <input type="radio" name="shipping" value="east" onchange="updateCartUI()" class="accent-pink-500">
+                            <div>
+                                <span class="font-bold text-gray-700" data-i18n="eastMY">东马 (East MY)</span>
+                                <span class="block text-[10px] text-gray-400" id="eastShippingHint">RM 12.00</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Customization Note Input -->
+                <div class="space-y-1">
+                    <label class="block text-xs font-semibold text-gray-600" data-i18n="lblNotes">字母定制 & 贺卡寄语 (Custom Notes):</label>
+                    <textarea id="checkoutNote" rows="2" placeholder="例：手链定制字母[CLOE]，贺卡祝语：祝毕业快乐！" data-i18n-ph="notesPh" class="w-full p-2.5 border border-pink-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-pink-300 resize-none"></textarea>
+                </div>
+
+                <!-- Price Summary -->
+                <div class="space-y-1.5 pt-2 text-xs text-gray-600 border-t border-dashed border-pink-200">
+                    <div class="flex justify-between">
+                        <span data-i18n="subtotal">商品小计</span>
+                        <span id="cartSubtotal" class="font-semibold text-gray-800">RM 0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span data-i18n="estShipping">估算邮费</span>
+                        <span id="cartShipping" class="font-semibold text-gray-800">RM 6.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold text-pink-600 pt-1">
+                        <span data-i18n="totalPayable">应付总额</span>
+                        <span id="cartTotal">RM 6.00</span>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Order Action Button -->
+                <button onclick="checkoutToWhatsApp()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-full shadow-lg shadow-emerald-200 transition flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> <span data-i18n="btnWhatsApp">通过 WhatsApp 一键发送订单</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Manage Panel Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div id="adminLoginView" class="text-center py-6 space-y-4">
+                <div class="w-12 h-12 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center mx-auto text-xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800">商家后台管理登录</h3>
+                <p class="text-xs text-gray-500">请输入解锁密码（默认密码：1234）</p>
+                <input type="password" id="adminPassInput" placeholder="请输入密码" class="px-4 py-2 border border-gray-300 rounded-full text-xs w-48 text-center focus:outline-none focus:ring-2 focus:ring-pink-300">
+                <br>
+                <button onclick="verifyAdminPass()" class="px-6 py-2 bg-pink-500 text-white font-bold rounded-full text-xs hover:bg-pink-600 shadow-sm">登录管理</button>
+            </div>
+
+            <div id="adminContentView" class="hidden space-y-6">
+                <div class="border-b pb-3 flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-gray-800"><i class="fa-solid fa-sliders text-pink-500"></i> jerryxcraft 店铺后台管理</h3>
+                    <span class="text-xs bg-emerald-100 text-emerald-700 font-bold px-2.5 py-1 rounded-full">已认证商家</span>
+                </div>
+
+                <!-- Admin Settings Form -->
+                <div class="space-y-4 text-xs">
+                    <h4 class="font-bold text-pink-600 text-sm border-l-4 border-pink-500 pl-2">基础设置</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-semibold mb-1">WhatsApp 接收号码 (不加+号):</label>
+                            <input type="text" id="cfgPhone" class="w-full p-2 border rounded-xl">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1">西马运费 (RM):</label>
+                            <input type="number" id="cfgWestFee" class="w-full p-2 border rounded-xl">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1">西马包邮门槛 (RM):</label>
+                            <input type="number" id="cfgFreeShip" class="w-full p-2 border rounded-xl">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1">东马运费 (RM):</label>
+                            <input type="number" id="cfgEastFee" class="w-full p-2 border rounded-xl">
+                        </div>
+                    </div>
+
+                    <h4 class="font-bold text-pink-600 text-sm border-l-4 border-pink-500 pl-2 pt-2">商品列表管理（自由新增/修改）</h4>
+                    <div id="adminProductsList" class="space-y-3 max-h-60 overflow-y-auto pr-1">
+                        <!-- Dynamic Editable Admin Products -->
+                    </div>
+                    <button onclick="addNewAdminProduct()" class="w-full py-2 bg-pink-50 text-pink-600 font-bold rounded-xl border border-pink-200 hover:bg-pink-100"><i class="fa-solid fa-plus"></i> 新增商品</button>
+
+                    <div class="pt-4 flex gap-2">
+                        <button onclick="saveAdminSettings()" class="flex-1 py-3 bg-emerald-500 text-white font-bold rounded-full text-sm shadow-md hover:bg-emerald-600">保存更改并刷新</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-gray-300 pt-12 pb-8 border-t border-gray-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Shop Details -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold">J</div>
+                        <span class="text-base font-bold text-white">jerryxcraft</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed" data-i18n="footerAbout">
+                        专为马来西亚顾客打造的手工串珠手机链、精致手链与高颜值毕业/生日礼盒定制小铺。
+                    </p>
+                </div>
+
+                <!-- Payment Methods Section -->
+                <div class="space-y-3">
+                    <h4 class="text-sm font-bold text-white" data-i18n="footerPayment">支持的付款方式</h4>
+                    <p class="text-gray-400" data-i18n="footerPaySub">下单后提供二维码与账号转账：</p>
+                    <div class="flex flex-wrap gap-2 text-gray-200 font-semibold text-[11px]">
+                        <span class="px-2.5 py-1 bg-gray-800 border border-gray-700 rounded-md">Touch 'n Go eWallet</span>
+                        <span class="px-2.5 py-1 bg-gray-800 border border-gray-700 rounded-md">DuitNow QR</span>
+                        <span class="px-2.5 py-1 bg-gray-800 border border-gray-700 rounded-md">Online Banking</span>
+                    </div>
+                </div>
+
+                <!-- Delivery & Processing Time -->
+                <div class="space-y-3">
+                    <h4 class="text-sm font-bold text-white" data-i18n="footerShipping">发货与时效</h4>
+                    <ul class="space-y-1.5 text-gray-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-pink-400"></i> <span data-i18n="ship1">手作制作：1 - 2 个工作日</span></li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-truck-fast text-pink-400"></i> <span data-i18n="ship2">西马快递：2 - 3 天送达</span></li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-plane text-pink-400"></i> <span data-i18n="ship3">东马快递：3 - 5 天送达</span></li>
+                    </ul>
+                </div>
+
+                <!-- Socials & Direct Contact -->
+                <div class="space-y-3">
+                    <h4 class="text-sm font-bold text-white" data-i18n="footerContact">关注与联系我们</h4>
+                    <div class="flex gap-3 text-lg">
+                        <a href="#" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-pink-500 text-white flex items-center justify-center transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-black text-white flex items-center justify-center transition"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-emerald-500 text-white flex items-center justify-center transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                    <p class="text-gray-400" id="footerPhoneText">WhatsApp: +60 12-345 6789</p>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-gray-500 gap-2">
+                <p>&copy; 2026 jerryxcraft. All Rights Reserved. Crafted with 💕 in Malaysia.</p>
+                <button onclick="openAdminModal()" class="text-gray-600 hover:text-pink-400 transition underline flex items-center gap-1">
+                    <i class="fa-solid fa-gear"></i> ⚙️ 商家管理 / Admin Panel
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Store & Config State (Supports LocalStorage Persistence)
+        let shopConfig = JSON.parse(localStorage.getItem('jerryxcraft_config')) || {
+            whatsapp: "60123456789",
+            westShippingFee: 6.00,
+            freeShippingMin: 35.00,
+            eastShippingFee: 12.00
+        };
+
+        // Multilingual Dictionary
+        const i18n = {
+            zh: {
+                topBar: '全店满 <span class="underline font-bold">RM 35</span> 包邮（西马）！下单即送免费精美卡片代写与礼盒包装 ✨',
+                brandSub: '手作小铺 · 马来西亚手作',
+                catAll: '全部商品',
+                catGrad: '🎓 毕业礼盒',
+                catBirthday: '🎂 生日礼盒',
+                catSingle: '✨ 单品系列',
+                badgeHot: '热门',
+                howToOrderBtn: '📖 下单流程',
+                customGuideBtn: '定制字母指南',
+                heroBadge: '马来西亚独家定制手作饰品',
+                heroTitleLine1: '独一无二的手作心意 💖',
+                heroTitleLine2: '专属毕业与生日礼盒定制',
+                heroDesc: '精美手链、手机链与挂坠套组。自带开窗礼盒、手写贺卡与专属字母串珠，为你和重要的人定格温馨时刻。',
+                heroBtnGrad: '浏览毕业礼盒',
+                heroBtnCustom: '查看定制玩法',
+                featuredTag: '🎓 毕业典藏热销',
+                featuredTitle: '“闪耀新程”豪华毕业礼盒',
+                featuredDesc: '含定制手链 + 手机链 + 挂坠 + 礼盒贺卡',
+                secTitleAll: '全部商品展示',
+                secSubTitle: '选购精心搭配的限定礼盒或随心单品',
+                searchPh: '搜索名称或关键字...',
+                emptyTitle: '未找到相关商品',
+                emptyDesc: '尝试换个关键词，或切换分类浏览吧！',
+                guideHeading: '只需 5 步，轻松下单送礼 🎁',
+                guideSub: '零繁琐注册！网站选好直接跳转 WhatsApp 发送，省时又省心',
+                s1Title: '挑选手作/套组',
+                s1Desc: '浏览生日/毕业礼盒或单品手机链，点击“加入购物车”。',
+                s1Detail: '在首页浏览生日/毕业套组或手链/手机链单品，选择数量并点击【加入购物车】。',
+                s2Title: '定制字母与贺卡',
+                s2Desc: '打开购物车，输入定制的名字字母（A-Z）或手写贺卡祝福。',
+                s2Detail: '点击右上角购物车，在备注框里输入手链/挂坠要加的字母（例如：CHLOE）以及代写贺卡内容。',
+                s3Title: '选择邮寄地区',
+                s3Desc: '选择西马或东马（西马满 RM35 自动享受包邮优惠）。',
+                s3Detail: '勾选【西马】或【东马】。西马满 RM 35 自动享有免邮优惠！',
+                s4Title: '点击 WhatsApp 下单',
+                s4Desc: '点击按钮，自动带出整理好的订单详情并跳转 WhatsApp。',
+                s4Detail: '点击【通过 WhatsApp 一键发送订单】，系统会自动整理好购买清单并带您跳转到卖家的聊天框。',
+                s5Title: '完成付款与等待',
+                s5Desc: '使用 Touch \'n Go 或 DuitNow QR 转账，卖家安排制作发货。',
+                s5Detail: '通过 DuitNow QR 或 Touch \'n Go eWallet 转账给卖家，卖家确认后会在 1-2 天内制作并寄出！',
+                mHowToTitle: '顾客购物与定制流程指南',
+                mHowToSub: '跟着以下 5 个步骤，轻松提交订单',
+                gotItBtn: '我知道了，开始挑选',
+                gotItBtn2: '我明白了，去挑选商品',
+                mCustomTitle: '专属字母 & 贺卡定制指南',
+                mCustomSub: '几步轻松打造独一无二的礼物',
+                cStep1: '字母串珠定制（A-Z）',
+                cStep1Desc: '选购支持定制的礼盒或单品后，可在结账时填写您要定制的名字字母（例如：CHLOE 或 K & T）。建议 3-7 个字母外观最佳。',
+                cStep2: '免费代写贺卡服务',
+                cStep2Desc: '在购物车结账面板填入您的祝福语（约 50 字以内），我们将手写在精美小贺卡上并随礼盒寄出！',
+                cStep3: '开窗礼盒与精致包装',
+                cStep3Desc: '所有礼盒套组均包含：透明开窗纸盒 + 优质拉菲草衬垫 + 蝴蝶结彩带 + 保护气泡膜，直接寄送给收礼人也超级体面。',
+                cartTitle: '已选购商品',
+                lblShipping: '配送地区 (Shipping Region):',
+                westMY: '西马 (West MY)',
+                eastMY: '东马 (East MY)',
+                lblNotes: '字母定制 & 贺卡寄语 (Custom Notes):',
+                notesPh: '例：手链定制字母[CLOE]，贺卡祝语：祝毕业快乐！',
+                subtotal: '商品小计',
+                estShipping: '估算邮费',
+                totalPayable: '应付总额',
+                btnWhatsApp: '通过 WhatsApp 一键发送订单',
+                footerAbout: '专为马来西亚顾客打造的手工串珠手机链、精致手链与高颜值毕业/生日礼盒定制小铺。',
+                footerPayment: '支持的付款方式',
+                footerPaySub: '下单后提供二维码与账号转账：',
+                footerShipping: '发货与时效',
+                ship1: '手作制作：1 - 2 个工作日',
+                ship2: '西马快递：2 - 3 天送达',
+                ship3: '东马快递：3 - 5 天送达',
+                footerContact: '关注与联系我们',
+                addBtn: '加入购物车'
+            },
+            en: {
+                topBar: 'Free Shipping in West MY on orders over <span class="underline font-bold">RM 35</span>! Free gift box & handwritten card ✨',
+                brandSub: 'Handmade Craft Shop · Malaysia',
+                catAll: 'All Items',
+                catGrad: '🎓 Graduation Sets',
+                catBirthday: '🎂 Birthday Sets',
+                catSingle: '✨ Single Charms',
+                badgeHot: 'HOT',
+                howToOrderBtn: '📖 How to Order',
+                customGuideBtn: 'Customization Guide',
+                heroBadge: 'Exclusive Handmade Accessories in Malaysia',
+                heroTitleLine1: 'Unique Handmade Love 💖',
+                heroTitleLine2: 'Custom Graduation & Birthday Gift Sets',
+                heroDesc: 'Beautiful beaded phone charms, bracelets & gift sets. Comes with window gift boxes, handwritten card service & custom letter beads.',
+                heroBtnGrad: 'Browse Grad Sets',
+                heroBtnCustom: 'Custom Guide',
+                featuredTag: '🎓 Best Seller',
+                featuredTitle: '"Shine New Journey" Deluxe Grad Set',
+                featuredDesc: 'Includes Custom Bracelet + Phone Charm + Bag Pendant + Gift Box',
+                secTitleAll: 'All Products',
+                secSubTitle: 'Shop curated gift sets or individual handmade pieces',
+                searchPh: 'Search items or keywords...',
+                emptyTitle: 'No Products Found',
+                emptyDesc: 'Try another keyword or change category!',
+                guideHeading: 'Easy 5-Step Ordering Process 🎁',
+                guideSub: 'No registration needed! Select items & send directly via WhatsApp.',
+                s1Title: '1. Select Products',
+                s1Desc: 'Browse sets or single charms, then add to cart.',
+                s1Detail: 'Browse birthday/grad sets or phone straps, then click [Add to Cart].',
+                s2Title: '2. Custom Name & Card',
+                s2Desc: 'Enter custom name letters (A-Z) or greeting messages in cart.',
+                s2Detail: 'Open cart, type your custom initial letters (e.g. CHLOE) and greeting message.',
+                s3Title: '3. Choose Region',
+                s3Desc: 'Select West or East MY (Free shipping over RM35 for West MY).',
+                s3Detail: 'Select West MY or East MY. Free shipping for West MY orders over RM35!',
+                s4Title: '4. Send via WhatsApp',
+                s4Desc: 'Click button to auto-generate order details and open WhatsApp.',
+                s4Detail: 'Click [Send Order via WhatsApp] to open formatted order list in WhatsApp chat.',
+                s5Title: '5. Payment & Delivery',
+                s5Desc: 'Pay via DuitNow QR or Touch \'n Go, item will be shipped in 1-2 days.',
+                s5Detail: 'Make payment via DuitNow QR / Touch \'n Go eWallet, and seller ships out soon!',
+                mHowToTitle: 'Customer Shopping & Customization Guide',
+                mHowToSub: 'Follow these 5 steps to place your order seamlessly',
+                gotItBtn: 'Got it, Start Shopping',
+                gotItBtn2: 'Got it, Browse Products',
+                mCustomTitle: 'Custom Letter & Card Service Guide',
+                mCustomSub: 'Create a unique personalized gift in easy steps',
+                cStep1: 'Custom Letter Beads (A-Z)',
+                cStep1Desc: 'When ordering, specify your desired name letters (e.g., CHLOE or K & T) at cart checkout. 3-7 letters look best.',
+                cStep2: 'Free Handwritten Card Service',
+                cStep2Desc: 'Write your message in cart note (under 50 words), and we will handwrite it on a cute card inside the gift box!',
+                cStep3: 'Window Gift Box Packaging',
+                cStep3Desc: 'All gift sets include: Transparent window box + Raffia filler + Ribbon + Bubble protection.',
+                cartTitle: 'Shopping Cart',
+                lblShipping: 'Shipping Region:',
+                westMY: 'West MY',
+                eastMY: 'East MY',
+                lblNotes: 'Custom Initial & Card Message:',
+                notesPh: 'E.g., Bracelet letter [CHLOE], Card: Happy Graduation!',
+                subtotal: 'Subtotal',
+                estShipping: 'Estimated Shipping',
+                totalPayable: 'Total Amount',
+                btnWhatsApp: 'Send Order via WhatsApp',
+                footerAbout: 'Dedicated handmade beaded phone straps, bracelets, and aesthetic gift boxes for customers in Malaysia.',
+                footerPayment: 'Supported Payment Methods',
+                footerPaySub: 'QR and account details provided after order:',
+                footerShipping: 'Shipping & Processing',
+                ship1: 'Handmade Crafting: 1 - 2 Working Days',
+                ship2: 'West MY Courier: 2 - 3 Days Delivery',
+                ship3: 'East MY Courier: 3 - 5 Days Delivery',
+                footerContact: 'Follow & Contact Us',
+                addBtn: 'Add to Cart'
+            }
+        };
+
+        let currentLang = 'zh';
+
+        // Default Product Catalog
+        const defaultProducts = [
+            {
+                id: 1,
+                title: "【🎓 毕业特辑】“毕业小确幸”定制字母礼盒",
+                category: "grad",
+                price: 28.00,
+                tag: "毕业热门",
+                badgeColor: "bg-purple-100 text-purple-700",
+                description: "包含：定制字母手链 + 字母挂坠 + 精美开窗礼盒 + 毕业祝贺卡片",
+                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                title: "【🎓 毕业特辑】“闪耀新程”豪华毕业全家桶",
+                category: "grad",
+                price: 38.00,
+                tag: "超值全套",
+                badgeColor: "bg-pink-100 text-pink-700",
+                description: "包含：长款手机链 + 定制字母手链 + 定制短挂坠 + 豪华拉菲草礼盒",
+                image: "https://images.unsplash.com/photo-1611591475281-8d995e72d240?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                title: "【🎂 生日特辑】“随身相伴”经典生日礼盒",
+                category: "birthday",
+                price: 29.90,
+                tag: "生日首选",
+                badgeColor: "bg-rose-100 text-rose-700",
+                description: "包含：长款手机链 + 精美手链 + 丝带礼盒包装 + 免费代写贺卡",
+                image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 4,
+                title: "【🎂 生日特辑】“双倍快乐”闺蜜双人礼盒",
+                category: "birthday",
+                price: 28.00,
+                tag: "姐妹闺蜜款",
+                badgeColor: "bg-purple-100 text-purple-700",
+                description: "包含：短款手机链 x 2（同款/不同色姐妹款） + 礼盒包装 + 贺卡",
+                image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                title: "【单品】精美手工串珠手链",
+                category: "single",
+                price: 15.00,
+                tag: "经典百搭",
+                badgeColor: "bg-gray-100 text-gray-700",
+                description: "柔和奶白与粉色水晶搭配，上手显白精致，支持加字母",
+                image: "https://images.unsplash.com/photo-1611591475281-8d995e72d240?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 6,
+                title: "【单品】长款手机挂绳 (Long Charm)",
+                category: "single",
+                price: 18.00,
+                tag: "出街必备",
+                badgeColor: "bg-gray-100 text-gray-700",
+                description: "适合手提或挎在手腕，拍照超级出片，附送手机挂片",
+                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 7,
+                title: "【单品】短款手机挂绳 (Short Charm)",
+                category: "single",
+                price: 15.00,
+                tag: "轻巧实惠",
+                badgeColor: "bg-gray-100 text-gray-700",
+                description: "精致短小不占空间，拿在手里刚刚好，保护手机防止掉落",
+                image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 8,
+                title: "【单品】加长款斜挎手机挂绳",
+                category: "single",
+                price: 20.00,
+                tag: "实用斜挎",
+                badgeColor: "bg-amber-100 text-amber-800",
+                description: "加长尺寸可直接斜挎，解放双手，高质感结实防断裂",
+                image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 9,
+                title: "【单品】短款可爱背包/钥匙小挂坠",
+                category: "single",
+                price: 9.90,
+                originalPrice: 12.00,
+                tag: "限时折扣",
+                badgeColor: "bg-red-100 text-red-600 font-bold",
+                description: "可挂于包包、耳挂或钥匙圈上，点缀生活小精致",
+                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        let products = JSON.parse(localStorage.getItem('jerryxcraft_products')) || defaultProducts;
+        let cart = [];
+        let activeCategory = 'all';
+
+        // Initialize Shop
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products);
+            updateCartUI();
+            applyLanguage();
+        });
+
+        // Language Switcher Handler
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.getElementById('langBtnText').innerText = currentLang === 'zh' ? 'EN' : '中文';
+            applyLanguage();
+            renderProducts(getFilteredProducts());
+        }
+
+        function applyLanguage() {
+            const dict = i18n[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.innerHTML = dict[key];
+            });
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (dict[key]) el.placeholder = dict[key];
+            });
+
+            // Update Dynamic Hints
+            document.getElementById('westShippingHint').innerText = `RM ${shopConfig.westShippingFee.toFixed(2)} (满${shopConfig.freeShippingMin}包邮)`;
+            document.getElementById('eastShippingHint').innerText = `RM ${shopConfig.eastShippingFee.toFixed(2)}`;
+            document.getElementById('footerPhoneText').innerText = `WhatsApp: +${shopConfig.whatsapp}`;
+        }
+
+        // Filter Products Handler
+        function filterCategory(cat) {
+            activeCategory = cat;
+            renderProducts(getFilteredProducts());
+        }
+
+        function getFilteredProducts() {
+            return activeCategory === 'all' ? products : products.filter(p => p.category === activeCategory);
+        }
+
+        // Search Input Filter
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = products.filter(p => 
+                p.title.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query)
+            );
+            renderProducts(filtered);
+        }
+
+        // Render Product Cards
+        function renderProducts(items) {
+            const grid = document.getElementById('productsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (items.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            const addTxt = i18n[currentLang].addBtn;
+
+            grid.innerHTML = items.map(p => `
+                <div class="bg-white rounded-3xl overflow-hidden border border-pink-100 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Product Image Box -->
+                        <div class="relative h-48 overflow-hidden bg-pink-50">
+                            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs ${p.badgeColor}">
+                                ${p.tag}
+                            </span>
+                        </div>
+
+                        <!-- Content Details -->
+                        <div class="p-4 space-y-2">
+                            <h3 class="font-bold text-gray-800 text-sm leading-snug line-clamp-2">${p.title}</h3>
+                            <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">${p.description}</p>
+                        </div>
+                    </div>
+
+                    <!-- Price and Action Footer -->
+                    <div class="p-4 pt-0 flex items-center justify-between border-t border-gray-50 mt-2">
+                        <div>
+                            <span class="text-xs text-gray-400 font-semibold">RM</span>
+                            <span class="text-lg font-bold text-pink-600">${Number(p.price).toFixed(2)}</span>
+                            ${p.originalPrice ? `<span class="text-xs text-gray-400 line-through ml-1">RM ${Number(p.originalPrice).toFixed(2)}</span>` : ''}
+                        </div>
+                        <button onclick="addToCart(${p.id})" class="px-3.5 py-2 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-500 hover:text-white font-semibold text-xs transition duration-200 flex items-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-plus text-[10px]"></i> ${addTxt}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Logic
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            
+            const badge = document.getElementById('cartCountBadge');
+            badge.classList.remove('scale-0');
+            badge.classList.add('scale-125');
+            setTimeout(() => badge.classList.remove('scale-125'), 200);
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartCountBadge');
+            badge.innerText = totalItems;
+            if (totalItems > 0) {
+                badge.classList.remove('scale-0');
+            } else {
+                badge.classList.add('scale-0');
+            }
+
+            const container = document.getElementById('cartItemsContainer');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fa-solid fa-basket-shopping text-4xl mb-3 text-pink-200"></i>
+                        <p class="text-xs">${currentLang === 'zh' ? '购物车空空如也，快去挑选精美手作吧！' : 'Your cart is empty. Add some handmade items!'}</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="flex gap-3 bg-pink-50/40 p-3 rounded-2xl border border-pink-100 items-center justify-between">
+                        <img src="${item.image}" class="w-14 h-14 rounded-xl object-cover flex-shrink-0" alt="${item.title}">
+                        <div class="flex-grow min-w-0">
+                            <h4 class="font-bold text-xs text-gray-800 truncate">${item.title}</h4>
+                            <p class="text-xs text-pink-600 font-semibold mt-0.5">RM ${(item.price * item.quantity).toFixed(2)}</p>
+                        </div>
+                        <div class="flex items-center border border-pink-200 rounded-full bg-white px-2 py-1 gap-2 flex-shrink-0">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="text-xs text-gray-500 hover:text-pink-600 w-4 text-center">-</button>
+                            <span class="text-xs font-bold w-4 text-center text-gray-700">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="text-xs text-gray-500 hover:text-pink-600 w-4 text-center">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shippingRegion = document.querySelector('input[name="shipping"]:checked')?.value || 'west';
+            
+            let shippingFee = 0;
+            if (cart.length > 0) {
+                if (shippingRegion === 'west') {
+                    shippingFee = subtotal >= shopConfig.freeShippingMin ? 0 : shopConfig.westShippingFee;
+                } else {
+                    shippingFee = shopConfig.eastShippingFee;
+                }
+            }
+
+            const total = subtotal + shippingFee;
+
+            document.getElementById('cartSubtotal').innerText = `RM ${subtotal.toFixed(2)}`;
+            document.getElementById('cartShipping').innerText = shippingFee === 0 && subtotal >= shopConfig.freeShippingMin && shippingRegion === 'west' ? (currentLang === 'zh' ? '免费 (包邮)' : 'FREE') : `RM ${shippingFee.toFixed(2)}`;
+            document.getElementById('cartTotal').innerText = `RM ${total.toFixed(2)}`;
+        }
+
+        // Modals Toggles
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            const isHidden = modal.classList.contains('opacity-0');
+            if (isHidden) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.querySelector('div').classList.remove('translate-x-full');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.querySelector('div').classList.add('translate-x-full');
+            }
+        }
+
+        function openCustomModal() {
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-95');
+        }
+
+        function closeCustomModal() {
+            const modal = document.getElementById('customModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.add('scale-95');
+        }
+
+        function openHowToOrderModal() {
+            const modal = document.getElementById('howToOrderModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-95');
+        }
+
+        function closeHowToOrderModal() {
+            const modal = document.getElementById('howToOrderModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.add('scale-95');
+        }
+
+        // Admin Panel Controls
+        function openAdminModal() {
+            const modal = document.getElementById('adminModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById('adminModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function verifyAdminPass() {
+            const input = document.getElementById('adminPassInput').value;
+            if (input === '1234') {
+                document.getElementById('adminLoginView').classList.add('hidden');
+                document.getElementById('adminContentView').classList.remove('hidden');
+                loadAdminForm();
+            } else {
+                alert('密码错误！默认密码为：1234');
+            }
+        }
+
+        function loadAdminForm() {
+            document.getElementById('cfgPhone').value = shopConfig.whatsapp;
+            document.getElementById('cfgWestFee').value = shopConfig.westShippingFee;
+            document.getElementById('cfgFreeShip').value = shopConfig.freeShippingMin;
+            document.getElementById('cfgEastFee').value = shopConfig.eastShippingFee;
+
+            renderAdminProductsList();
+        }
+
+        function renderAdminProductsList() {
+            const list = document.getElementById('adminProductsList');
+            list.innerHTML = products.map((p, index) => `
+                <div class="p-2.5 bg-gray-50 rounded-xl border flex flex-col gap-2">
+                    <div class="flex gap-2">
+                        <input type="text" value="${p.title}" onchange="products[${index}].title=this.value" placeholder="商品名称" class="flex-1 p-1 border rounded">
+                        <input type="number" value="${p.price}" onchange="products[${index}].price=parseFloat(this.value)" placeholder="价格" class="w-20 p-1 border rounded">
+                        <button onclick="removeAdminProduct(${index})" class="text-red-500 px-2"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="text" value="${p.image}" onchange="products[${index}].image=this.value" placeholder="图片链接" class="flex-1 p-1 border rounded text-[10px]">
+                        <select onchange="products[${index}].category=this.value" class="p-1 border rounded text-[10px]">
+                            <option value="grad" ${p.category==='grad'?'selected':''}>毕业季</option>
+                            <option value="birthday" ${p.category==='birthday'?'selected':''}>生日季</option>
+                            <option value="single" ${p.category==='single'?'selected':''}>单品</option>
+                        </select>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addNewAdminProduct() {
+            products.push({
+                id: Date.now(),
+                title: "全新手作饰品",
+                category: "single",
+                price: 15.00,
+                tag: "新品上架",
+                badgeColor: "bg-pink-100 text-pink-700",
+                description: "点击修改描述内容",
+                image: "https://images.unsplash.com/photo-1611591475281-8d995e72d240?auto=format&fit=crop&w=600&q=80"
+            });
+            renderAdminProductsList();
+        }
+
+        function removeAdminProduct(index) {
+            products.splice(index, 1);
+            renderAdminProductsList();
+        }
+
+        function saveAdminSettings() {
+            shopConfig.whatsapp = document.getElementById('cfgPhone').value.trim();
+            shopConfig.westShippingFee = parseFloat(document.getElementById('cfgWestFee').value) || 6.00;
+            shopConfig.freeShippingMin = parseFloat(document.getElementById('cfgFreeShip').value) || 35.00;
+            shopConfig.eastShippingFee = parseFloat(document.getElementById('cfgEastFee').value) || 12.00;
+
+            localStorage.setItem('jerryxcraft_config', JSON.stringify(shopConfig));
+            localStorage.setItem('jerryxcraft_products', JSON.stringify(products));
+
+            alert('保存成功！');
+            location.reload();
+        }
+
+        // WhatsApp Checkout
+        function checkoutToWhatsApp() {
+            if (cart.length === 0) {
+                alert(currentLang === 'zh' ? '您的购物车还是空的哦，请先添加商品！' : 'Your cart is empty!');
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shippingRegion = document.querySelector('input[name="shipping"]:checked')?.value || 'west';
+            const shippingText = shippingRegion === 'west' ? '西马 (West MY)' : '东马 (East MY)';
+            let shippingFee = shippingRegion === 'west' ? (subtotal >= shopConfig.freeShippingMin ? 0 : shopConfig.westShippingFee) : shopConfig.eastShippingFee;
+            const total = subtotal + shippingFee;
+            const notes = document.getElementById('checkoutNote').value.trim();
+
+            let message = currentLang === 'zh' ? `你好！我想在【jerryxcraft】购买以下商品：\n\n` : `Hi! I would like to order from 【jerryxcraft】:\n\n`;
+            
+            cart.forEach((item, idx) => {
+                message += `${idx + 1}. ${item.title} x ${item.quantity} = RM ${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+
+            message += `\n------------------`;
+            message += `\n📦 配送地区/Region: ${shippingText}`;
+            message += `\n💰 商品小计/Subtotal: RM ${subtotal.toFixed(2)}`;
+            message += `\n🚚 估算邮费/Shipping: RM ${shippingFee.toFixed(2)}`;
+            message += `\n✨ 应付总额/Total: RM ${total.toFixed(2)}`;
+            
+            if (notes) {
+                message += `\n\n📝 定制/贺卡留言 (Notes): ${notes}`;
+            }
+
+            message += currentLang === 'zh' ? `\n\n请问还有现货吗？期待您的回复！` : `\n\nIs this available? Looking forward to your reply!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${shopConfig.whatsapp}?text=${encodedMessage}`, '_blank');
+        }
+    </script>
+</body>
+</html>
